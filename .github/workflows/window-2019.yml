@@ -20,7 +20,7 @@ jobs:
         
       - name: Connect Ngrok.
         run: |
-          ./ngrok/ngrok.exe authtoken $Env:NGROK_AUTH
+          ./ngrok/ngrok.exe config add-authtoken $Env:NGROK_AUTH
         env:
           NGROK_AUTH: ${{ secrets.TAKEN }}
       - name: Windows10 RDP.
@@ -30,7 +30,7 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
           copy wallpaper.bat D:\a\wallpaper.bat
       - name: Tunnel.
-        run: Start-Process Powershell -ArgumentList '-Noexit -Command "./ngrok/ngrok.exe tcp --region ap 3389"'
+        run: Start-Process Powershell -ArgumentList '-Noexit -Command "./ngrok/ngrok.exe tcp 3389"'
       - name: Connect Rdp.
         run: cmd /c start.bat
       - name: win10 RDP.
